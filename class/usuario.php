@@ -117,7 +117,7 @@ class Usuario{
         $results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
             ":LOGIN"=>$this->getDeslogin(),
             ":PASSWORD"=>$this->getDessenha()
-          ));
+            ));
         
         if (count($results) > 0){
             
@@ -134,7 +134,22 @@ class Usuario{
 
         $sql = new Sql();
 
-        $sql -> query("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE id = :ID",array(":LOGIN" => $this -> getdeslogin(), ":PASSWORD" => $this -> getdessenha(), ":ID" => $this ->getidusuario()));
+        $sql -> query("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE id = :ID", array(":LOGIN" => $this -> getdeslogin(), ":PASSWORD" => $this -> getdessenha(), ":ID" => $this ->getidusuario() 
+        ));
+    }
+
+    public function delete(){
+
+        $sql = new Sql();
+
+        $sql -> query("DELETE FROM tb_usuarios WHERE id = :ID", array(":ID" => $this -> getidusuario() 
+        ));
+
+        $this -> setidusuario(NULL);
+        $this -> setdeslogin(NULL);
+        $this -> setdessenha(NULL);
+        $this -> setdtcadastro(new DateTime());
+    
     }
 
     public function __construct($login = "", $password = ""){

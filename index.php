@@ -16,13 +16,13 @@ require_once("config.php");
 
 // echo json_encode($lista);
 
-// Carrega uma lista de usuários buscando pelo login
+// // Carrega uma lista de usuários buscando pelo login
 
 // $search = Usuario::search('funcionaporfavor');
 
 // echo json_encode($search);
 
-//Carrega um usuario usando login e senha
+// //Carrega um usuario usando login e senha
 
 // $usuario = new Usuario();
 
@@ -30,7 +30,7 @@ require_once("config.php");
 
 // echo $usuario;
 
-// Criando um novo usuario
+// // Criando um novo usuario
 
 //  $aluno = new Usuario("aluno","lun0");
 
@@ -38,11 +38,23 @@ require_once("config.php");
 
 //  echo $aluno;
 
-$usuario = new Usuario();
+// // Alterando os dados do usuario
+// $usuario = new Usuario();
 
-$usuario -> loadbyid(5);
+// $usuario -> loadbyid(5);
 
-$usuario -> update("legal","demais");
+// $usuario -> update("legal","demais");
 
-echo $usuario;
+// echo $usuario;
+
+// // Deletando usuario
+
+// $usuario = new Usuario();
+
+// $usuario -> loadbyid(6);
+
+// $usuario -> delete();
+
+// echo $usuario;
+
 ?>
