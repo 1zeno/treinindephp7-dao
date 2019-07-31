@@ -59,13 +59,8 @@ class Usuario{
         ));
 
         if(count($results) > 0){
-
-        $row = $results[0];
             
-        $this -> setidusuario($row['id']);
-        $this -> setdeslogin($row['deslogin']);
-        $this -> setdessenha($row['dessenha']);
-        $this -> setdtcadastro(new DateTime ($row['dtcadastro']));
+        $this ->setData($results[0]);
 
         }
 
@@ -97,12 +92,7 @@ class Usuario{
 
         if(count($results) > 0){
 
-        $row = $results[0];
-          
-        $this -> setidusuario($row['id']);
-        $this -> setdeslogin($row['deslogin']);
-        $this -> setdessenha($row['dessenha']);
-        $this -> setdtcadastro(new DateTime ($row['dtcadastro']));
+        $this ->setData($results[0]);
 
         } else {
 
@@ -111,6 +101,48 @@ class Usuario{
 
     }
 
+    public function setData($data){
+      
+        $this -> setidusuario($data['id']);
+        $this -> setdeslogin($data['deslogin']);
+        $this -> setdessenha($data['dessenha']);
+        $this -> setdtcadastro(new DateTime ($data['dtcadastro']));
+
+    }
+
+    public function insert(){
+
+        $sql = new Sql();
+        
+        $results = $sql->select("CALL sp_usuarios_insert(:LOGIN, :PASSWORD)", array(
+            ":LOGIN"=>$this->getDeslogin(),
+            ":PASSWORD"=>$this->getDessenha()
+          ));
+        
+        if (count($results) > 0){
+            
+            $this -> setData($results[0]);
+
+        }
+    }
+
+
+    public function update($login,$password){
+
+        $this -> setdeslogin($login);
+        $this -> setdessenha($password);
+
+        $sql = new Sql();
+
+        $sql -> query("UPDATE tb_usuarios SET deslogin = :LOGIN, dessenha = :PASSWORD WHERE id = :ID",array(":LOGIN" => $this -> getdeslogin(), ":PASSWORD" => $this -> getdessenha(), ":ID" => $this ->getidusuario()));
+    }
+
+    public function __construct($login = "", $password = ""){
+
+        $this -> setdeslogin($login);
+        $this -> setdessenha($password);
+
+    }
     public function __toString(){
               
          $result = json_encode(array(
