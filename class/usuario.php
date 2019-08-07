@@ -51,11 +51,11 @@ class Usuario{
 
     }
 
-    public function loadbyid($id){
+    public function loadbyid($table,$id){
 
         $sql = new Sql();
 
-        $results = $sql -> select("SELECT * FROM tb_usuarios WHERE id = :ID", array(":ID" => $id
+        $results = $sql -> select("SELECT * FROM ".$table." WHERE id = :ID", array(":ID" => $id
         ));
 
         if(count($results) > 0){
@@ -66,29 +66,28 @@ class Usuario{
 
     }
 
-    public static function getList(){
+    public static function getList($table){
 
         $sql = new Sql();
 
-        return $sql -> select("SELECT * FROM tb_usuarios ORDER BY deslogin");
+        return $sql -> select("SELECT * FROM ".$table." ORDER BY deslogin");
     }
 
-    public static function search($login){
+    public static function search($table,$login){
 
         $sql = new Sql();
 
-        return $sql -> select("SELECT * FROM tb_usuarios WHERE deslogin LIKE :SEARCH ORDER BY deslogin ", array(':SEARCH' => "%".$login."%"));
+        return $sql -> select("SELECT * FROM ".$table." WHERE deslogin LIKE :SEARCH ORDER BY deslogin ", array(':SEARCH' => "%".$login."%"));
 
     }
 
-    public function login($login,$password){
+    public function login($table,$login,$password){
 
         $sql = new Sql();
 
-        $results = $sql -> select("SELECT * FROM tb_usuarios WHERE deslogin = :LOGIN", array(
+        $results = $sql -> select("SELECT * FROM ".$table." WHERE deslogin = :LOGIN", array(
         ":LOGIN" => $login
         ));
-        //print_r($results);
 
         if(count($results) > 0){
 

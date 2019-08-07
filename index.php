@@ -12,7 +12,7 @@ require_once("config.php");
 
 
 // //Carrega uma lista de usuários
-// $lista = Usuario::getList();
+// $lista = Usuario::getList("tb_usuarios");
 
 // echo json_encode($lista);
 
